@@ -1,0 +1,33 @@
+﻿{% extends "app/layout.html" %}
+{% load static %}
+{% block content %}
+
+<div class="jumbotron">
+    <div id="solution" class="container" style="margin-top: 5%;">
+        <form method="post">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        {{formUserInput.as_table}}  
+                    </tr>
+                </tbody>
+            </table>
+    
+    {% csrf_token %}
+    <p><center><input type="submit" class="btn btn-primary" value="Szukaj" /></center></p>
+    </form>
+        </div>
+</div>
+
+
+
+{% endblock %}
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - FuzzyApartment</p>
+        </footer>
+
+
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
