@@ -61,7 +61,7 @@ def start_fuzzy_engine(formUserInput):
     #fuzzy membership functions
     price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
-    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (10000000 / speed_up_price_calc), (10000000 / speed_up_price_calc)])
+    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), 10000000 , 10000000 ])
 
 
     if input_room_min != 1:
