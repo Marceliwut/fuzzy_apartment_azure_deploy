@@ -8,6 +8,11 @@ from app.Scrapper import Apartment
 from datetime import datetime
 from app.forms import UserInput
 
+################
+#
+# FuzzyEngine on SciKitFuzzy
+# @mmirzyns ver.0.2
+
 class InputApartment:
     def __init__(self, price, room_min, room_max, size_min, size_max, pages, limiter):
         self.price = price
@@ -19,79 +24,11 @@ class InputApartment:
         self.limiter = limiter
 
 
-def draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal ):
-    # Visualize these universes and membership functions
-    fig, (ax0, ax1, ax2) = plt.subplots(nrows=3, figsize=(8, 9))
-    fig, (ax3)= plt.subplots(nrows=1, figsize=(7, 6))
-   
-
-    ax0.set_title('Price')
-    ax0.set_yscale('log')
-
-    #ax0.axis(0,1,100000,1000000)
-    #x1,x2,y1,y2 = ax0.axis()
-    #ax0.axis((x1,x2,100000,1000000))
-   #pppp ax0.plot(price, price_in_range, 'b', linewidth=1.5, label='In range')
-   # ax0.plot(price, price_bit_high, 'g', linewidth=1.5, label='Bit high')
-    #plt.ylim(0, 1000000)
-   # ax0.plot(price, price_really_high, 'r', linewidth=1.5, label='Really high')
-    
-
-    ax1.set_title('Number of rooms')
-    ax1.plot(rooms, rooms_too_few, 'b', linewidth=1.5, label='Too few')
-    ax1.plot(rooms, rooms_in_range, 'g', linewidth=1.5, label='In range')
-    ax1.plot(rooms, rooms_too_many, 'r', linewidth=1.5, label='Too many')
-    
-    ax2.set_title('Size in square meters')
-    ax2.plot(size, size_too_small, 'b', linewidth=1.5, label='Too low')
-    ax2.plot(size, size_in_range, 'g', linewidth=1.5, label='In range')
-    ax2.plot(size, size_too_big, 'r', linewidth=1.5, label='Too big')
-
-    ax3.set_title('Ideal score')
-    ax3.plot(ideal_score, score_super_low, 'b', linewidth=1.5, label='Super low')
-    ax3.plot(ideal_score, score_bit_low, 'g', linewidth=1.5, label='Bit low')
-    ax3.plot(ideal_score, score_low, 'c', linewidth=1.5, label='Low')
-    ax3.plot(ideal_score, score_mid_low, 'm', linewidth=1.5, label='Mid Low')
-    ax3.plot(ideal_score, score_mid, 'y', linewidth=1.5, label='Mid')
-    ax3.plot(ideal_score, score_mid_high, 'b', linewidth=1.5, label='Mid high')
-    ax3.plot(ideal_score, score_high_low, 'g', linewidth=1.5, label='High low')
-    ax3.plot(ideal_score, score_high_mid, 'c', linewidth=1.5, label='High mid')
-    ax3.plot(ideal_score, score_high, 'm', linewidth=1.5, label='High')
-    ax3.plot(ideal_score, score_ideal, 'r', linewidth=1.5, label='ideal')
-
-    ax0.legend()
-    ax1.legend()
-    ax2.legend()
-    ax3.legend()
-    plt.tight_layout()
-    plt.show()
-    plt.savefig('foo.pdf')
-
-def draw_result_plot (ideal_score, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, score0, aggregated, final_ideal_score, final_score_activation):
-    #plotting results here
-    fig, ax0 = plt.subplots(figsize=(8, 3))
-
-    ax0.plot(ideal_score, score_super_low, 'b', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_bit_low, 'g', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_low, 'c', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_mid_low, 'm', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_mid, 'y', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_mid_high, 'b', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_high_low, 'g', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_high_mid, 'c', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_high, 'm', linewidth=0.5, linestyle='--')
-    ax0.plot(ideal_score, score_ideal, 'r', linewidth=0.5, linestyle='--')
-
-    ax0.fill_between(ideal_score, score0, aggregated, facecolor='Blue', alpha=0.7)
-    ax0.plot([final_ideal_score, final_ideal_score], [0, final_score_activation], 'k', linewidth=1.5, alpha=0.9)
-    ax0.set_title('Result plot:')
-
-    plt.tight_layout()
-    plt.show()
 def start_fuzzy_engine(formUserInput):
     startTime = datetime.now()
     #dividing prices by 1000 was one of the ideas to speed up assignement process -unlucky idea to be honest
     speed_up_price_calc = 1
+
 
 
     #input variables -static for now
@@ -118,10 +55,10 @@ def start_fuzzy_engine(formUserInput):
     #size of the apartment
     size = np.arange(10, 200, 1)
     #score given to each apartment as result of fuzzification up to 10
-    ideal_score = np.arange(0, 10, 1)
+    ideal_score = np.arange(0, 11, 1)
 
     #fuzzy membership functions
-    price_in_range = fuzz.trapmf(price, [0, 0, (input_price * 0.9), (input_price *1.05)])
+    price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
     price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (10000000 / speed_up_price_calc), (10000000 / speed_up_price_calc)])
 
@@ -141,7 +78,8 @@ def start_fuzzy_engine(formUserInput):
     else:
         rooms_too_many = fuzz.trapmf(rooms, [21, 21, 21, 21])
 
-    size_too_small = fuzz.trimf(size, [0, 0, input_size_min])
+    size_super_small = fuzz.trapmf(size, [0, 0, (input_size_min * 0.75), (input_size_min * 0.9)])
+    size_too_small = fuzz.trimf(size, [(input_size_min * 0.7), (input_size_min * 0.9), input_size_min])
     size_in_range = fuzz.trapmf(size, [input_size_min, input_size_min, input_size_max, input_size_max])
     size_too_big = fuzz.trapmf(size, [input_size_max, input_size_max * 1.3, 200, 200])
 
@@ -155,13 +93,24 @@ def start_fuzzy_engine(formUserInput):
     score_high_low = fuzz.trimf(ideal_score, [6, 7, 8])
     score_high_mid = fuzz.trimf(ideal_score, [7, 8, 9])
     score_high = fuzz.trimf(ideal_score, [8, 9, 10])
-    score_ideal = fuzz.trimf(ideal_score, [10, 10, 10])
+    score_ideal = fuzz.trimf(ideal_score, [9, 10, 10])
 
-    #draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal)
+    #draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, ideal_score, size_super_small)
 
 
     #Starting scrapper for newest apartment_list from domiporta.pl
     apartment_list = launcher("Kraków", "", pages, limiter)
+
+    #apartment1 = Apartment("Ideal","/link", 200000, 2, 50)
+    #apartment2 = Apartment("too big","/link",500000,2,80)
+    #apartment3 = Apartment("small","/link",500000,2,35)
+    #apartment3 = Apartment("super_small","/link",500000,2,10)
+    #apartment4 = Apartment("expensive super small","/link",7000000,2,15)
+    #apartment_list = list()
+    #apartment_list.append(apartment1)
+    #apartment_list.append(apartment2)
+    #apartment_list.append(apartment3)
+    #apartment_list.append(apartment4)
 
     #For debugging purposes
     #print("Script downloaded ", len(apartment_list), " apartments in: ", (datetime.now() - startTime))
@@ -169,80 +118,178 @@ def start_fuzzy_engine(formUserInput):
 
     forStartTime = datetime.now()
     for apartment in apartment_list:
-        activation_super_low_score = 0
-        activation_bit_low_score = 0
-        activation_low_score = 0 
-        activation_mid_low_score = 0
-        activation_mid_score = 0    
-        activation_mid_high_score = 0
-        activation_high_low_score = 0
-        activation_high_mid_score = 0
-        activation_high_score = 0
-        activation_ideal_score = 0
+        #print("Checking apartment", apartment.name, " ", apartment.price, " ", apartment.size)
+
 
         #activation range for inputs
         #activation for price
-        activation_price_in_range = fuzz.interp_membership(price, price_in_range, (int(apartment.price) / speed_up_price_calc))
-        activation_price_bit_high = fuzz.interp_membership(price, price_bit_high, (int(apartment.price) / speed_up_price_calc))
-        activation_price_really_high = fuzz.interp_membership(price, price_really_high, (int(apartment.price) / speed_up_price_calc))
+        activation_price_in_range = fuzz.interp_membership(price, price_in_range, apartment.price)
+        activation_price_bit_high = fuzz.interp_membership(price, price_bit_high, apartment.price)
+        activation_price_really_high = fuzz.interp_membership(price, price_really_high, apartment.price)
 
         #activation for size
+        activation_size_super_small = fuzz.interp_membership(size, size_super_small, apartment.size)
         activation_size_too_small = fuzz.interp_membership(size, size_too_small, apartment.size)
         activation_size_in_range = fuzz.interp_membership(size, size_in_range, apartment.size)
         activation_size_too_big = fuzz.interp_membership(size, size_too_big, apartment.size)
 
 
+        #print("Activation price in range", activation_price_in_range)
+        #print("Price high", activation_price_bit_high)
+        #print("Price really high", activation_price_really_high)
+        #print("Size super small", activation_size_super_small)
+        #print("Size too small", activation_size_too_small)
+        #print("Size in range", activation_size_in_range)
+        #print("Size too big", activation_size_too_big)
+
+        activation_low_score = 0
+
+        #super_low      X
+        #bit_low        X
+        #low            XXX
+        #mid_low        X
+        #mid_high       X
+        #mid            X
+        #high_mid       X
+        #high_low       X
+        #high           X
+        #ideal          X
+
         #rules and rules assignemenets
         #rules for price in range
-        active_rule1 = np.fmax(activation_price_in_range, activation_size_in_range)
-        activation_ideal_score = np.fmin(active_rule1, score_ideal)
+        in_range_rule1 = np.fmin(activation_price_in_range, activation_size_in_range)
+        activation_ideal_score = np.fmin(in_range_rule1, score_ideal)
 
-        active_rule2 = np.fmax(activation_price_in_range, activation_size_too_small)
-        activation_mid_high_score = np.fmin(active_rule2, score_mid_low)
+        in_range_rule2 = np.fmin(activation_price_in_range, activation_size_too_big)
+        activation_high_score = np.fmin(in_range_rule2, score_high)
 
-        active_rule3 = np.fmax(activation_price_in_range, activation_size_too_big)
-        activation_high_score = np.fmin(active_rule3, score_high)
+        in_range_rule3 = np.fmin(activation_price_in_range, activation_size_too_small)
+        activation_mid_score = np.fmin(in_range_rule3, score_mid)
 
-        #rules for bit high price
-        active_rule4 = np.fmax(activation_price_bit_high, activation_size_in_range)
-        activation_mid_score = np.fmin(active_rule4, score_mid)
+        in_range_rule4 = np.fmin(activation_price_in_range, activation_size_super_small)
+        activation_low_score = np.fmin(in_range_rule4, score_low)
 
-        active_rule5 = np.fmax(activation_price_bit_high, activation_size_too_small)
-        activation_low_score = np.fmin(active_rule5, score_low)
 
-        active_rule6 = np.fmax(activation_price_bit_high, activation_size_too_big)
-        activation_high_score = np.fmin(active_rule6, score_low)
 
-        #rules for really high price
-        active_rule7 = np.fmax(activation_price_really_high, activation_size_in_range)
-        activation_low_score = np.fmin(active_rule7, score_mid)
+        #prices bit high
+        bit_high_rule1 = np.fmin(activation_price_bit_high, activation_size_too_big)
+        activation_high_mid_score = np.fmin(bit_high_rule1, score_high_mid)
 
-        active_rule8 = np.fmax(activation_price_really_high, activation_size_too_small)
-        activation_super_low_score = np.fmin(active_rule8, score_super_low)
+        bit_high_rule2 = np.fmin(activation_price_bit_high, activation_size_in_range)
+        activation_high_low_score = np.fmin(bit_high_rule2, score_high_low)
 
-        active_rule9 = np.fmax(activation_price_really_high, activation_size_too_big)
-        activation_bit_low_score = np.fmin(active_rule9, score_bit_low)
+        bit_high_rule3 = np.fmin(activation_price_bit_high, activation_size_too_small)
+        if(activation_low_score.any() == 0):
+            activation_low_score = np.fmin(bit_high_rule3, score_low)
 
-        score0 = np.zeros_like(ideal_score)
-        #aggregating results and deffuzification
+        #print("Activation low score: ", activation_low_score)
+
+        bit_high_rule4 = np.fmin(activation_price_bit_high, activation_size_super_small)
+        activation_bit_low_score = np.fmin(bit_high_rule4, score_bit_low)
+
+
+
+        #prices really high
+        really_high_rule1 = np.fmin(activation_price_really_high, activation_size_too_big)
+        activation_mid_high_score = np.fmin(really_high_rule1, score_mid_high)
+
+        really_high_rule2 = np.fmin(activation_price_really_high, activation_size_in_range)
+        activation_mid_low_score = np.fmin(really_high_rule2, score_mid_low)
+
+        really_high_rule3 = np.fmin(activation_price_really_high, activation_size_too_small)
+        if(activation_low_score.any() == 0):
+            activation_low_score = np.fmin(really_high_rule3, score_low)
+
+        really_high_rule4 = np.fmin(activation_price_really_high, activation_size_super_small)
+        activation_super_low_score = np.fmin(really_high_rule4, score_super_low)
+
+
+
+        #print("Activation slow score: ", activation_super_low_score)
+        #print("Activation blow score: ", activation_bit_low_score)
+        #print("Activation low score: ", activation_low_score)
+        #print("Activation mid_high score: ", activation_mid_high_score)
+        #print("Activation mid score: ", activation_mid_score)
+        #print("Activation high score: ", activation_high_score)
+        #print("Activation ideal score: ", activation_ideal_score)
+        #os.system("PAUSE")
+        #activation_bit_low_score = np.fmin(active_rule9, score_bit_low)
+
+        aggregated = None
         aggregated = np.fmax(activation_super_low_score,
-                         np.fmax(activation_bit_low_score,
-                                 np.fmax(activation_low_score,
-                                         np.fmax(activation_mid_low_score,
-                                                 np.fmax(activation_mid_score,
-                                                         np.fmax(activation_mid_high_score,
-                                                                 np.fmax(activation_high_low_score,
-                                                                         np.fmax(activation_high_mid_score,
-                                                                                 np.fmax(activation_high_score, activation_ideal_score)))))))))
+                             np.fmax(activation_bit_low_score,
+                                   np.fmax(activation_low_score,
+                                           np.fmax(activation_mid_low_score,
+                                                np.fmax(activation_mid_high_score,
+                                                    np.fmax(activation_mid_score,
+                                                    np.fmax(activation_high_low_score,
+                                                    np.fmax(activation_high_mid_score,
+                                                            np.fmax(activation_high_score, activation_ideal_score)
+                                                            )
+                                                    )
+                                            )
+                                   )
+                             ))))
+
+        #print(aggregated)
 
         final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
+       # print("Final score for apartment: ", apartment.name, " ", final_ideal_score)
         final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
-        apartment.ideal_score = final_ideal_score
+        apartment.ideal_score = round(final_ideal_score, 2)
+        i = i + 1
+
+      #  print("Final score activation for apartment: ", apartment.name, " ", final_score_activation)
     
         #Plot function for result
         #draw_result_plot (ideal_score, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, score0, aggregated, final_ideal_score, final_score_activation)
 
-        i = i + 1
+        
+       # print("Activation ideal score: ", activation_ideal_score, "apartment name ", apartment.name)
+
+       # active_rule2 = np.fmin(activation_price_in_range, activation_size_too_small)
+       # activation_mid_high_score = np.fmax(active_rule2, score_mid_low)
+
+       ## print("Activation mid high score: ", activation_mid_high_score)
+
+       # active_rule3 = np.fmax(activation_price_in_range, activation_size_too_big)
+       # activation_high_score = np.fmin(active_rule3, score_high)
+
+       # #rules for bit high price
+       # active_rule4 = np.fmax(activation_price_bit_high, activation_size_in_range)
+       # activation_mid_score = np.fmin(active_rule4, score_mid)
+
+       # active_rule5 = np.fmax(activation_price_bit_high, activation_size_too_small)
+       # activation_low_score = np.fmin(active_rule5, score_low)
+
+       # active_rule6 = np.fmax(activation_price_bit_high, activation_size_too_big)
+       # activation_high_score = np.fmin(active_rule6, score_low)
+
+       # #rules for really high price
+       # active_rule7 = np.fmax(activation_price_really_high, activation_size_in_range)
+       # activation_low_score = np.fmin(active_rule7, score_mid)
+
+       # active_rule8 = np.fmax(activation_price_really_high, activation_size_too_small)
+       # activation_super_low_score = np.fmin(active_rule8, score_super_low)
+
+       # active_rule9 = np.fmax(activation_price_really_high, activation_size_too_big)
+       # activation_bit_low_score = np.fmin(active_rule9, score_bit_low)
+
+        
+        #aggregating results and deffuzification
+        #aggregated = np.fmax(activation_super_low_score,
+        #                 np.fmax(activation_bit_low_score,
+        #                         np.fmax(activation_low_score,
+        #                                 np.fmax(activation_mid_low_score,
+        #                                         np.fmax(activation_mid_score,
+        #                                                 np.fmax(activation_mid_high_score,
+        #                                                         np.fmax(activation_high_low_score,
+        #                                                                 np.fmax(activation_high_mid_score,
+        #                                                                         np.fmax(activation_high_score, activation_ideal_score)))))))))
+        
+
+
+
 
     #for apartment in apartment_list:
     #    print(apartment)
@@ -251,4 +298,5 @@ def start_fuzzy_engine(formUserInput):
     #Debugging purposes
     #print("For finished in: ", (datetime.now() - forStartTime))
     #print("Script finished in: ", (datetime.now() - startTime))
+    
     return apartment_list
