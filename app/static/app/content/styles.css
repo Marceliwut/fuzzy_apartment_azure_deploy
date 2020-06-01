@@ -68,9 +68,9 @@ body {
 }
 
 .results {
-  width: 100%;
-  margin-left: 30%;
-  margin-right: auto;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 .solution {
@@ -6078,6 +6078,7 @@ body {
 .masthead {
   position: relative;
   width: 100%;
+  min-height: 1000px;
   height: auto;
   min-height: 35rem;
   padding: 15rem 0;
