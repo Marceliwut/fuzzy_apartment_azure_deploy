@@ -169,16 +169,16 @@ def start_fuzzy_engine(formUserInput):
 
     forStartTime = datetime.now()
     for apartment in apartment_list:
-        activation_super_low_score = 0
-        activation_bit_low_score = 0
-        activation_low_score = 0 
-        activation_mid_low_score = 0
-        activation_mid_score = 0    
-        activation_mid_high_score = 0
-        activation_high_low_score = 0
-        activation_high_mid_score = 0
-        activation_high_score = 0
-        activation_ideal_score = 0
+        activation_super_low_score = None
+        activation_bit_low_score = None
+        activation_low_score = None 
+        activation_mid_low_score = None
+        activation_mid_score = None    
+        activation_mid_high_score = None
+        activation_high_low_score = None
+        activation_high_mid_score = None
+        activation_high_score = None
+        activation_ideal_score = None
 
         #activation range for inputs
         #activation for price
