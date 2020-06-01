@@ -67,6 +67,10 @@ body {
   background-color: #fff;
 }
 
+.solution {
+  min-height: 800px;
+}
+
 .form.ul {
     text-decoration: none;
     display: inline;
@@ -6055,7 +6059,7 @@ body {
 
 .masthead-img {
     height: auto;
-    width: 50%;
+    width: 20%;
 }
 
 
