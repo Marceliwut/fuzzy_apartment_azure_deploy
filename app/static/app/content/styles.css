@@ -3016,6 +3016,7 @@ input[type=button].btn-block {
     justify-content: space-between;
     padding: 0.5rem 1rem;
     background-color:#fff;
+    border-bottom-style: none!important;
 
 }
 .navbar .container,
@@ -6076,6 +6077,7 @@ body {
 
 
 .masthead {
+  margin-top: -5%;
   position: relative;
   width: 100%;
   min-height: 1000px!important;
