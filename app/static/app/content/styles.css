@@ -3017,6 +3017,7 @@ input[type=button].btn-block {
     padding: 0.5rem 1rem;
     background-color:#fff;
     border-bottom-style: none!important;
+    width: 100%;
 
 }
 .navbar .container,
@@ -3075,6 +3076,8 @@ input[type=button].btn-block {
 }
 
 .navbar-collapse {
+  margin-left: 20%;
+  margin-right: 20%;
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
@@ -6052,11 +6055,11 @@ body {
 #mainNav .navbar-nav .nav-item:hover {
   color: fade(#fff, 80%);
   outline: none;
-  background-color: transparent;
+  background-color: #64a19d;
 }
 #mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
   outline: none;
-  background-color: transparent;
+  background-color: #64a19d;
 }
 
 .btn {
