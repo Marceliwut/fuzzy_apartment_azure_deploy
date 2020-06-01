@@ -1,11 +1,28 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 
 {% block content %}
 
-<h2>{{ title }}</h2>
 
-<div class="jumbotron">
-    <p>Rozmyta wyszukiwarka ofert mieszkaniowych.</p>
-</div>
+
+<header class="masthead">
+            <!--<div class="container d-flex h-100 align-items-center">-->
+                <div class="mx-auto text-center">
+                    <center>
+                                        <img class="masthead-img blurring" src={% static 'app/assets/img/house.png' %} />
+                    <h2>{{ title }}</h2>
+                    <h1 class="mx-auto my-0">FuzzyApartment</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Rozmyta wyszukiwarka ofert mieszkań</h2>
+                        <p> Aplikacja na podstawie danych wejściowych otrzymanych od użytkownika tworzy zbiory rozmyte i jako dane wyjściowe pokazuje licznik <b>Ideal Score</b></p>
+                        <p>Ideal Score pokazuje jak bardzo mieszkanie odpowiada wymaganiom użytkownika</p>
+                        <h2>Aplikacja napisana w języku python. Można ją podzielić na 3 główne części</h2>
+                      <ul>
+	                    <li>prezentacja interfejsu użytkownika dla danych wejściowych i wyjściowych -wykorzystano bibliotekę django</li>
+	                    <li>silnik logiki rozmyty nazwany fuzzy_engine -scikitfuzzy</li>
+	                    <li>własny prosty "scrapper" czyli kod ściągający dane z innej strony -w tym przypadku domiporta.pl</li>
+                    </ul>
+                        </center>
+                </div>
+            
+</header>
 
 {% endblock %}
