@@ -18,11 +18,9 @@
         <div class="form">
         <form method="post">
             <table>
-                <tbody>
-                    <tr>
-                        {{formUserInput.as_ul}}  
-                    </tr>
-                </tbody>
+
+                        {{formUserInput.as_table}}  
+
             </table>
     
     {% csrf_token %}
