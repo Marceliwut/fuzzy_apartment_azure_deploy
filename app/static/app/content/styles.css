@@ -3043,7 +3043,7 @@ input[type=button].btn-block {
 }
 
 .navbar-nav {
-  display: flex;
+  display: inline!important;
   flex-direction: column;
   padding-left: 0;
   margin-bottom: 0;
@@ -3051,11 +3051,11 @@ input[type=button].btn-block {
 }
 
 .navbar-nav.ul {
-  display: inline-block;
+  display: inline;
 }
 
 .navbar-nav.li {
-  display: inline-block;
+  display: inline;
 }
 
 .navbar-nav .nav-link {
