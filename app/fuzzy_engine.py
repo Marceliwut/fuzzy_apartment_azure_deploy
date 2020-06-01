@@ -194,34 +194,34 @@ def start_fuzzy_engine(formUserInput):
 
         #rules and rules assignemenets
         #rules for price in range
-        active_rule1 = np.fmax(activation_price_in_range, activation_size_in_range)
-        activation_ideal_score = np.fmax(active_rule1, score_ideal)
+        active_rule1 = np.fmin(activation_price_in_range, activation_size_in_range)
+        activation_ideal_score = np.fmin(active_rule1, score_ideal)
 
-        active_rule2 = np.fmax(activation_price_in_range, activation_size_too_small)
-        activation_mid_high_score = np.fmax(active_rule2, score_mid_low)
+        active_rule2 = np.fmin(activation_price_in_range, activation_size_too_small)
+        activation_mid_high_score = np.fmin(active_rule2, score_mid_low)
 
-        active_rule3 = np.fmax(activation_price_in_range, activation_size_too_big)
-        activation_high_score = np.fmax(active_rule3, score_high)
+        active_rule3 = np.fminfmin(activation_price_in_range, activation_size_too_big)
+        activation_high_score = np.fmin(active_rule3, score_high)
 
         #rules for bit high price
-        active_rule4 = np.fmax(activation_price_bit_high, activation_size_in_range)
-        activation_mid_score = np.fmax(active_rule4, score_mid)
+        active_rule4 = np.fmin(activation_price_bit_high, activation_size_in_range)
+        activation_mid_score = np.fmin(active_rule4, score_mid)
 
-        active_rule5 = np.fmax(activation_price_bit_high, activation_size_too_small)
-        activation_low_score = np.fmax(active_rule5, score_low)
+        active_rule5 = np.fmin(activation_price_bit_high, activation_size_too_small)
+        activation_low_score = np.fmin(active_rule5, score_low)
 
-        active_rule6 = np.fmax(activation_price_bit_high, activation_size_too_big)
-        activation_high_score = np.fmax(active_rule6, score_low)
+        active_rule6 = np.fmin(activation_price_bit_high, activation_size_too_big)
+        activation_high_score = np.fmin(active_rule6, score_low)
 
         #rules for really high price
-        active_rule7 = np.fmax(activation_price_really_high, activation_size_in_range)
-        activation_low_score = np.fmax(active_rule7, score_mid)
+        active_rule7 = np.fmin(activation_price_really_high, activation_size_in_range)
+        activation_low_score = np.fmin(active_rule7, score_mid)
 
-        active_rule8 = np.fmax(activation_price_really_high, activation_size_too_small)
-        activation_super_low_score = np.fmax(active_rule8, score_super_low)
+        active_rule8 = np.fmin(activation_price_really_high, activation_size_too_small)
+        activation_super_low_score = np.fmin(active_rule8, score_super_low)
 
-        active_rule9 = np.fmax(activation_price_really_high, activation_size_too_big)
-        activation_bit_low_score = np.fmax(active_rule9, score_bit_low)
+        active_rule9 = np.fmin(activation_price_really_high, activation_size_too_big)
+        activation_bit_low_score = np.fmin(active_rule9, score_bit_low)
 
         score0 = np.zeros_like(ideal_score)
         #aggregating results and deffuzification
