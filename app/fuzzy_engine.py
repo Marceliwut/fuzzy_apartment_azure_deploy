@@ -5,13 +5,14 @@ import matplotlib.pyplot as plt
 from skfuzzy import control as ctrl
 from app.Scrapper import launcher
 from app.Scrapper import Apartment
-from datetime import datetime
 from app.forms import UserInput
 
 ################
 #
 # FuzzyEngine on SciKitFuzzy
 # @mmirzyns ver.0.2
+#
+################
 
 class InputApartment:
     def __init__(self, price, room_min, room_max, size_min, size_max, pages, limiter):
@@ -25,9 +26,9 @@ class InputApartment:
 
 
 def start_fuzzy_engine(formUserInput):
-    startTime = datetime.now()
+    #startTime = datetime.now()
     #dividing prices by 1000 was one of the ideas to speed up assignement process -unlucky idea to be honest
-    speed_up_price_calc = 1
+    #speed_up_price_calc = 1
 
 
 
@@ -99,7 +100,9 @@ def start_fuzzy_engine(formUserInput):
 
 
     #Starting scrapper for newest apartment_list from domiporta.pl
+    #downloadStartTime = datetime.now()
     apartment_list = launcher("Kraków", "", pages, limiter)
+    #downloadTime = (datetime.now() - downloadStartTime)
 
     #apartment1 = Apartment("Ideal","/link", 200000, 2, 50)
     #apartment2 = Apartment("too big","/link",500000,2,80)
@@ -116,7 +119,7 @@ def start_fuzzy_engine(formUserInput):
     #print("Script downloaded ", len(apartment_list), " apartments in: ", (datetime.now() - startTime))
     i = 1
 
-    forStartTime = datetime.now()
+    #forStartTime = datetime.now()
     for apartment in apartment_list:
         #print("Checking apartment", apartment.name, " ", apartment.price, " ", apartment.size)
 

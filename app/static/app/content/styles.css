@@ -3187,7 +3187,8 @@ input[type=button].btn-block {
   color: rgba(0, 0, 0, 0.9);
 }
 .navbar-light .navbar-text a:hover, .navbar-light .navbar-text a:focus {
-  color: rgba(0, 0, 0, 0.9);
+        background-color: #64a19d!important;
+        color: #fff;
 }
 
 .navbar-dark .navbar-brand {
