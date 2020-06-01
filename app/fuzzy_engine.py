@@ -200,7 +200,7 @@ def start_fuzzy_engine(formUserInput):
         active_rule2 = np.fmin(activation_price_in_range, activation_size_too_small)
         activation_mid_high_score = np.fmin(active_rule2, score_mid_low)
 
-        active_rule3 = np.fminfmin(activation_price_in_range, activation_size_too_big)
+        active_rule3 = np.fmin(activation_price_in_range, activation_size_too_big)
         activation_high_score = np.fmin(active_rule3, score_high)
 
         #rules for bit high price
