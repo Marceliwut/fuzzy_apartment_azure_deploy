@@ -230,6 +230,7 @@ caption {
 }
 
 th {
+  padding-right: 20%;
   text-align: inherit;
 }
 
@@ -3633,6 +3634,10 @@ a.badge-black:focus, a.badge-black.focus {
   margin-bottom: 2rem;
   background-color: #e9ecef;
   border-radius: 0.3rem;
+}
+
+.jumbotron td {
+  padding-left: 20%
 }
 
 .jumbotron-fluid {

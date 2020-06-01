@@ -16,15 +16,17 @@
             
 </header>
 <div class="jumbotron">
+
     <div id="solution" class="solution" style="margin-top: 5%;">
         <div class="form">
         <form method="post">
+                <center>
             <table>
 
                         {{formUserInput.as_table}}  
 
             </table>
-    
+    </center>
     {% csrf_token %}
     <p><center><input type="submit" class="btn btn-primary" value="Szukaj" /></center></p>
     </form>
