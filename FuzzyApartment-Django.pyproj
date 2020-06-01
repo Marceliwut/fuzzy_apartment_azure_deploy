@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>FuzzyApartment-Django</Name>
     <RootNamespace>FuzzyApartment-Django</RootNamespace>
-    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
     <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup>
@@ -55,6 +55,8 @@
     <Folder Include="app\migrations\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
+    <Folder Include="app\static\app\assets\" />
+    <Folder Include="app\static\app\assets\img\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
     <Folder Include="app\static\app\scripts\" />
@@ -63,6 +65,10 @@
     <Folder Include="FuzzyApartment_Django\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\assets\img\bg-masthead.jpg" />
+    <Content Include="app\static\app\assets\img\favicon.ico" />
+    <Content Include="app\static\app\assets\img\house.png" />
+    <Content Include="app\static\app\content\styles.css" />
     <Content Include="app\templates\app\results.html" />
     <Content Include="FuzzyApartment_Django\web.config" />
     <Content Include="requirements.txt" />
@@ -100,10 +106,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="env\">
-      <Id>env</Id>
+    <Interpreter Include="..\..\Python_venv\env1\">
+      <Id>env1</Id>
       <Version>3.7</Version>
-      <Description>env (Python 3.7 (64-bit))</Description>
+      <Description>env1 (Python 3.7 (64-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
