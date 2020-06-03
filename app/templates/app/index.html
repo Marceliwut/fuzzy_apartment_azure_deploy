@@ -7,10 +7,12 @@
         $("#loader").hide();
   $("#show").click(function(){
     $("#loader").show();
+    $("#tohide").hide();
   });
 });
 </script>
 <div id="loader"><h1>Ładowanie wyników</h1></div>
+<div id="tohide">
 <header class="masthead">
             <!--<div class="container d-flex h-100 align-items-center">-->
                 <div class="mx-auto text-center">
@@ -50,7 +52,7 @@
             <p>&copy; {{ year }} - FuzzyApartment</p>
         </footer>
 
-
+</div>
 {% endblock %}
 
 
