@@ -1,12 +1,27 @@
-﻿{% include "app/index.html" %}
+﻿{% extends "app/layout.html" %}
 {% load static %}
 {% block content %}
+
+<div id="summary" class="jumbotron">
+    <h1>Twoje preferencje:</h1>
+          {% for apartment in cleaned_input_apartment %}
+        <tr>
+            <td>{{ apartment.price }}</td>
+            <td>{{ apartment.size_min }}</td>
+            <td>{{ apartment.size_max }}</td>
+            <td>{{ apartment.room_min }}</td>
+            <td>{{ apartment.room_max }}</td>
+        </tr>
+
+        {% endfor %}
+
 
 
 <div id="results" class="results">
 <h2> Wyniki wyszukiwania:</h2>
 {% if apartment_list %}
    Pobrano {{ apartment_list|length }} ogłoszeń.
+
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -47,6 +62,7 @@
 </footer>
     </div>
         </div>
+</div>
 <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
 <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
 <script src="{% static 'app/scripts/respond.js' %}"></script>
