@@ -171,7 +171,7 @@ def start_fuzzy_engine(formUserInput):
         activation_ideal_score = np.fmin(in_range_rule1, score_ideal)
 
         in_range_rule2 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_big, activation_rooms_too_many))
-        activation_high_score = np.fmin(in_range_rule2, score_high)
+        activation_mid_high_score = np.fmin(in_range_rule2, score_mid_high)
 
         in_range_rule3 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_small, activation_rooms_too_few))
         activation_mid_score = np.fmin(in_range_rule3, score_mid)
@@ -180,7 +180,7 @@ def start_fuzzy_engine(formUserInput):
         activation_low_score = np.fmin(in_range_rule4, score_low)
 
         in_range_rule5 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_many))
-        activation_mid_high_score = np.fmin(in_range_rule5, score_mid_high)
+        activation_high_score = np.fmin(in_range_rule5, score_high)
 
         in_range_rule6 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_few))
         activation_mid_low_score= np.fmin(in_range_rule6, score_mid_low)
