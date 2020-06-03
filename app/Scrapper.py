@@ -68,18 +68,20 @@ def start_scrapper(url_address, limiter):
 
     
     apartment_list = list()
-    if limiter == 0:
+    if limiter == 0 or (limiter <= len(cleared_prices)):
         for i in range(len(cleared_prices) -1):  
             apartment_list.append(Apartment(names[i],
                                             cleared_links[i],
                                             cleared_prices[i], cleared_rooms[i], cleared_sizes[i]))
-        return apartment_list
+            return apartment_list
     else:
-        for i in range(limiter):  
-            apartment_list.append(Apartment(names[i], 
-                                            cleared_links[i],
-                                            cleared_prices[i], cleared_rooms[i], cleared_sizes[i]))
-        return apartment_list
+        
+            for i in range(limiter):  
+                apartment_list.append(Apartment(names[i], 
+                                                cleared_links[i],
+                                               cleared_prices[i], cleared_rooms[i], cleared_sizes[i]))
+
+    return apartment_list
 
 def launcher(city, district, pages, limiter):
     if limiter > 36:
