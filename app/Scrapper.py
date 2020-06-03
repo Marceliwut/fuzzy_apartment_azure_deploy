@@ -68,7 +68,7 @@ def start_scrapper(url_address, limiter):
 
     
     apartment_list = list()
-    if limiter == 0 or (limiter <= len(cleared_prices)):
+    if limiter == 0 or (limiter >= len(cleared_prices)):
         for i in range(len(cleared_prices) -1):  
             apartment_list.append(Apartment(names[i],
                                             cleared_links[i],

@@ -1,8 +1,15 @@
 ﻿{% extends "app/layout.html" %}
 {% load static %}
 {% block content %}
-
-
+<script>
+    $(document).ready(function () {
+        $("#loader").hide();
+  $("#show").click(function(){
+    $("#loader").show();
+  });
+});
+</script>
+<div id="loader"><h1>Ładowanie wyników</h1></div>
 <header class="masthead">
             <!--<div class="container d-flex h-100 align-items-center">-->
                 <div class="mx-auto text-center">
@@ -30,7 +37,7 @@
             </table>
     </center>
     {% csrf_token %}
-    <p><center><input type="submit" class="btn btn-primary" value="Szukaj" /></center></p>
+    <p><center><input type="submit" class="btn btn-primary" id="show" value="Szukaj" /></center></p>
     </form>
             </div>
         
