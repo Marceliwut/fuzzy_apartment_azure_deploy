@@ -3,15 +3,11 @@
 {% block content %}
 
 <div id="summary" class="jumbotron">
-    <h1>Twoje preferencje:</h1>
+    <div id="results">
+    <h2>Twoje preferencje:</h2>
   
-        <tr>
-            <td>{{ apartment.price }}</td>
-            <td>{{ apartment.size_min }}</td>
-            <td>{{ apartment.size_max }}</td>
-            <td>{{ apartment.room_min }}</td>
-            <td>{{ apartment.room_max }}</td>
-        </tr>
+   <p> Cena: {{ apartment.price }} wielkość {{ apartment.size_min }} - {{ apartment.size_max }} m2 ilość pokoi {{ apartment.room_min }} - {{ apartment.room_max }}</p>
+        </div>
 
 
 
