@@ -15,7 +15,8 @@ from app.forms import UserInput
 # # # # # # # # # # # # # # # #
 
 class InputApartment:
-    def __init__(self, price, room_min, room_max, size_min, size_max, pages, limiter):
+    def __init__(self, city, price, room_min, room_max, size_min, size_max, pages, limiter):
+        self.city = city
         self.price = price
         self.rooms_min = room_min
         self.rooms_max = room_max
@@ -26,14 +27,15 @@ class InputApartment:
 
 
 def start_fuzzy_engine(formUserInput):
-    startTime = datetime.now()
+
     #dividing prices by 1000 was one of the ideas to speed up assignement process -unlucky idea to be honest
     #speed_up_price_calc = 1
 
 
 
     #input variables -static for now
-    input_price = float(formUserInput.price)# / speed_up_price_calc
+    city = formUserInput.city
+    input_price = float(formUserInput.price)
     input_room_min = int(formUserInput.rooms_min)
     input_room_max = int(formUserInput.rooms_max)
     input_size_min = int(formUserInput.size_min)
@@ -102,7 +104,7 @@ def start_fuzzy_engine(formUserInput):
 
 
     #Starting scrapper for newest apartment_list from domiporta.pl
-    apartment_list = launcher("Kraków", "", pages, limiter)
+    apartment_list = launcher(city, "", pages, limiter)
 
  #   apartment1 = Apartment("Ideal","/link", 200000, 2, 50)
 #    apartment2 = Apartment("Rooms_too_many","/link", 200000, 10, 50)
@@ -120,8 +122,6 @@ def start_fuzzy_engine(formUserInput):
     #For debugging purposes
     #print("Script downloaded ", len(apartment_list), " apartments in: ", (datetime.now() - startTime))
     i = 1
-
-    forStartTime = datetime.now()
     for apartment in apartment_list:
 
 

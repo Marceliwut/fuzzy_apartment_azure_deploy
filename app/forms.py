@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class UserInput(forms.Form):
+    city = forms.CharField(label='Miasto', initial="Kraków")
     price = forms.CharField(label='Cena mieszkania', initial="500000")
     size_min = forms.IntegerField(label='Wielkość minimum', initial="40")
     size_max = forms.IntegerField(label='Wielkość maksimum', initial="60")
