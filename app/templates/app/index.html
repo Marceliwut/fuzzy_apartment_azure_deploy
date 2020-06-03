@@ -7,11 +7,38 @@
         $("#loader").hide();
   $("#show").click(function(){
     $("#loader").show();
-    $("#tohide").hide();
+      $("#tohide").hide();
+          var setBlur = function(ele, radius) {
+            $(ele).css({
+               "-webkit-filter": "blur("+radius+"px)",
+                "filter": "blur("+radius+"px)"
+           });
+       },
+
+       // Generic function to tween blur radius
+       tweenBlur = function(ele, startRadius, endRadius) {
+            $({blurRadius: startRadius}).animate({blurRadius: endRadius}, {
+                duration: 10000,
+                easing: 'swing', // or "linear"
+                                 // use jQuery UI or Easing plugin for more options
+                step: function() {
+                    setBlur(ele, this.blurRadius);
+                },
+                callback: function() {
+                    // Final callback to set the target blur radius
+                     // jQuery might not reach the end value
+                     setBlur(ele, endRadius);
+                }
+            });
+        };
+
+    // Start tweening
+    tweenBlur('.bluranimation', 0, 30);
+});
   });
 });
 </script>
-<div id="loader"><h1>Ładowanie wyników...</h1></div>
+<div id="loader"><div class="mx-auto text-center"><img class="masthead-img bluranimation" src={% static 'app/assets/img/house.png' %} /><h1>Ładowanie wyników...</h1></div></div>
 <div id="tohide">
 <header class="masthead">
             <!--<div class="container d-flex h-100 align-items-center">-->
@@ -48,7 +75,7 @@
     </div>
 
         <hr/>
-        <footer>
+        <footer class="mx-auto text-center">
             <p>&copy; {{ year }} - FuzzyApartment</p>
         </footer>
 
