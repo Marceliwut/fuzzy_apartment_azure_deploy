@@ -4,10 +4,10 @@
 
 <div id="summary" class="jumbotron">
     <div class="results">
-    <h2>Twoje preferencje:</h2>
+    <h2><b>Twoje preferencje:</b></h2>
   
-   <p> Cena: <b>{{ cleaned_input_apartment.price }} zł</b> wielkość: <b>{{ cleaned_input_apartment.size_min }}</b> - <b>{{ cleaned_input_apartment.size_max }}</b> m2 ilość pokoi <b>{{ cleaned_input_apartment.room_min }}</b> - <b>{{ cleaned_input_apartment.room_max }}</b></p>
-        </div>
+   <p> Cena: <b>{{ cleaned_input_apartment.price }} zł</b> wielkość: <b>{{ cleaned_input_apartment.size_min }}</b> - <b>{{ cleaned_input_apartment.size_max }}</b> m2 ilość pokoi <b>{{ cleaned_input_apartment.rooms_min }}</b> - <b>{{ cleaned_input_apartment.rooms_max }}</b></p>
+       <hr /> </div>
 
 
 
@@ -47,21 +47,22 @@
 {% endif %}
 <br>
 <p> Prędkość wykonania operacji: {{ speed }}</p>
-
-
-
-{% endblock %}
+        </div>
+        </div>
 <hr />
 <footer>
     <p>&copy; {{ year }} - FuzzyApartment</p>
 </footer>
-    </div>
-        </div>
-</div>
+
+
+{% endblock %}
+
+
+
+
 <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
 <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
 <script src="{% static 'app/scripts/respond.js' %}"></script>
 
 
-</div>
 
