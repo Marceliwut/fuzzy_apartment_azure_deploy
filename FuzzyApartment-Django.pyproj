@@ -69,6 +69,7 @@
     <Content Include="app\static\app\assets\img\favicon.ico" />
     <Content Include="app\static\app\assets\img\house.png" />
     <Content Include="app\static\app\content\styles.css" />
+    <Content Include="app\templates\app\error.html" />
     <Content Include="app\templates\app\results.html" />
     <Content Include="FuzzyApartment_Django\web.config" />
     <Content Include="requirements.txt" />

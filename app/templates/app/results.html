@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div id="summary" class="jumbotron">
+<div id="summary" class="jumbotron" style="height: 100%">
     <div class="results">
     <h2><b>Twoje preferencje:</b></h2>
   
@@ -49,10 +49,10 @@
 <p> Prędkość wykonania operacji: {{ speed }}</p>
         </div>
         </div>
-<hr />
-<footer>
-    <p>&copy; {{ year }} - FuzzyApartment</p>
-</footer>
+
+        <footer class="mx-auto text-center">
+            <p>&copy; {{ year }} - FuzzyApartment</p>
+        </footer>
 
 
 {% endblock %}
