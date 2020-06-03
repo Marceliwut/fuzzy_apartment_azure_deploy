@@ -14,7 +14,7 @@ def home(request):
     if request.method == 'POST':
         formUserInput = UserInput(request.POST)
         if formUserInput.is_valid():
-            cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], formUserInput.cleaned_data['pages'], formUserInput.cleaned_data['limiter'])
+            cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
             
             #launching fuzzy engine modeling
             apartment_list = start_fuzzy_engine(cleaned_input_apartment)

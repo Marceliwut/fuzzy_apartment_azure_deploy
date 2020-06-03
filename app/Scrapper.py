@@ -3,6 +3,13 @@
 from lxml import html
 import requests
 
+########## # # # # # #
+#
+# Scrapper
+# @mmirzyns ver.0.2 -added auto page limitation
+#
+# # # # # # # # # # # # # # # #
+
 class Apartment:
     def __init__(self, name, link, price, room, size):
         self.name = name
@@ -12,7 +19,7 @@ class Apartment:
         self.size = size
         self.ideal_score = 0
     def __str__(self):
-        return_string = ("Name: " + str(self.name) + "Link: " + str(self.link) + " Price: " + str(self.price) + " Rooms: " + str(self.room) + " Score: " + str(self.ideal_score))
+        return_string = ("Name: " + str(self.name) + "Link: " + str(self.link) + " Price: " + str(self.price) + " Rooms: " + str(self.room) + " Size: " + str(self.size) + " Score: " + str(self.ideal_score))
         return return_string
    
 
@@ -75,13 +82,29 @@ def start_scrapper(url_address, limiter):
         return apartment_list
 
 def launcher(city, district, pages, limiter):
+    if limiter > 36:
+        #print(limiter / 36)
+        pages = int((limiter / 36)) + (limiter % 36 > 0)
+        #print("changing pages to fit limiter new pages: ", pages)
+        pages_changed = True
+
+
     apartment_list = list()
+
+
+        
+
     for i in range(pages, 0, -1): 
         if district != "":
             URL_address = 'https://www.domiporta.pl/mieszkanie/sprzedam?Localization=' + city + '/' + district + '&PageNumber=' + str(i)
         else:
             URL_address = 'https://www.domiporta.pl/mieszkanie/sprzedam?Localization=' + city + '&PageNumber=' + str(i)
-        print("Will download apartments from ", URL_address)
-        apartment_list += start_scrapper(URL_address, limiter)
+        #print("Will download apartments from ", URL_address)
+        if(pages_changed and limiter > 36):
+            limiter = limiter - 36
+            apartment_list += start_scrapper(URL_address, 36)
+        else:
+            apartment_list += start_scrapper(URL_address, limiter)
     return apartment_list
+
 

@@ -14,7 +14,7 @@ class UserInput(forms.Form):
     size_max = forms.IntegerField(label='Wielkość maksimum', initial="60")
     rooms_min = forms.IntegerField(label='Ilość pokoi minimum', initial="2")
     rooms_max = forms.IntegerField(label='Ilość pokoi maksimum', initial="4")
-    pages = forms.IntegerField(label='Limit stron', initial="1")
+    #pages = forms.IntegerField(label='Limit stron', initial="1")
     limiter = forms.IntegerField(label='Limit wyników', initial="4")
 
     def check_data(self):

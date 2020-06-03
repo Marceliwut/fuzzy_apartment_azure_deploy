@@ -7,12 +7,12 @@ from app.Scrapper import launcher
 from app.Scrapper import Apartment
 from app.forms import UserInput
 
-################
+########## # # # # # #
 #
 # FuzzyEngine on SciKitFuzzy
 # @mmirzyns ver.0.2
 #
-################
+# # # # # # # # # # # # # # # #
 
 class InputApartment:
     def __init__(self, price, room_min, room_max, size_min, size_max, pages, limiter):
@@ -26,7 +26,7 @@ class InputApartment:
 
 
 def start_fuzzy_engine(formUserInput):
-    #startTime = datetime.now()
+    startTime = datetime.now()
     #dividing prices by 1000 was one of the ideas to speed up assignement process -unlucky idea to be honest
     #speed_up_price_calc = 1
 
@@ -61,7 +61,7 @@ def start_fuzzy_engine(formUserInput):
     #fuzzy membership functions
     price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
-    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), 10000000 , 10000000 ])
+    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (10000000), (10000000)])
 
 
     if input_room_min != 1:
@@ -78,6 +78,8 @@ def start_fuzzy_engine(formUserInput):
             rooms_too_many = fuzz.trapmf(rooms, [input_room_max, (input_room_max + 2), 20, 20])
     else:
         rooms_too_many = fuzz.trapmf(rooms, [21, 21, 21, 21])
+
+
 
     size_super_small = fuzz.trapmf(size, [0, 0, (input_size_min * 0.75), (input_size_min * 0.9)])
     size_too_small = fuzz.trimf(size, [(input_size_min * 0.7), (input_size_min * 0.9), input_size_min])
@@ -96,32 +98,32 @@ def start_fuzzy_engine(formUserInput):
     score_high = fuzz.trimf(ideal_score, [8, 9, 10])
     score_ideal = fuzz.trimf(ideal_score, [9, 10, 10])
 
-    #draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, ideal_score, size_super_small)
+   # draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, ideal_score, size_super_small)
 
 
     #Starting scrapper for newest apartment_list from domiporta.pl
-    #downloadStartTime = datetime.now()
     apartment_list = launcher("Kraków", "", pages, limiter)
-    #downloadTime = (datetime.now() - downloadStartTime)
 
-    #apartment1 = Apartment("Ideal","/link", 200000, 2, 50)
+ #   apartment1 = Apartment("Ideal","/link", 200000, 2, 50)
+#    apartment2 = Apartment("Rooms_too_many","/link", 200000, 10, 50)
+#    apartment3 = Apartment("Rooms_too_Few","/link", 200000, 1, 50)
     #apartment2 = Apartment("too big","/link",500000,2,80)
     #apartment3 = Apartment("small","/link",500000,2,35)
     #apartment3 = Apartment("super_small","/link",500000,2,10)
     #apartment4 = Apartment("expensive super small","/link",7000000,2,15)
-    #apartment_list = list()
-    #apartment_list.append(apartment1)
-    #apartment_list.append(apartment2)
-    #apartment_list.append(apartment3)
-    #apartment_list.append(apartment4)
+#    apartment_list = list()
+ #   apartment_list.append(apartment1)
+#    apartment_list.append(apartment2)
+#    apartment_list.append(apartment3)
+   # apartment_list.append(apartment4)
 
     #For debugging purposes
     #print("Script downloaded ", len(apartment_list), " apartments in: ", (datetime.now() - startTime))
     i = 1
 
-    #forStartTime = datetime.now()
+    forStartTime = datetime.now()
     for apartment in apartment_list:
-        #print("Checking apartment", apartment.name, " ", apartment.price, " ", apartment.size)
+
 
 
         #activation range for inputs
@@ -135,7 +137,6 @@ def start_fuzzy_engine(formUserInput):
         activation_size_too_small = fuzz.interp_membership(size, size_too_small, apartment.size)
         activation_size_in_range = fuzz.interp_membership(size, size_in_range, apartment.size)
         activation_size_too_big = fuzz.interp_membership(size, size_too_big, apartment.size)
-
 
         #activation for room number
         activation_rooms_too_few = fuzz.interp_membership(rooms, rooms_too_few, apartment.room)
@@ -171,7 +172,7 @@ def start_fuzzy_engine(formUserInput):
         activation_ideal_score = np.fmin(in_range_rule1, score_ideal)
 
         in_range_rule2 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_big, activation_rooms_too_many))
-        activation_mid_high_score = np.fmin(in_range_rule2, score_mid_high)
+        activation_high_score = np.fmin(in_range_rule2, score_high)
 
         in_range_rule3 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_small, activation_rooms_too_few))
         activation_mid_score = np.fmin(in_range_rule3, score_mid)
@@ -180,7 +181,7 @@ def start_fuzzy_engine(formUserInput):
         activation_low_score = np.fmin(in_range_rule4, score_low)
 
         in_range_rule5 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_many))
-        activation_high_score = np.fmin(in_range_rule5, score_high)
+        activation_mid_high_score = np.fmin(in_range_rule5, score_mid_high)
 
         in_range_rule6 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_few))
         activation_mid_low_score= np.fmin(in_range_rule6, score_mid_low)
@@ -246,72 +247,14 @@ def start_fuzzy_engine(formUserInput):
                                    )
                              ))))
 
-        #print(aggregated)
+        # if there somehow there are no activation functions active it will ommit this appartment
+        try:
+            final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
+            final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
+            apartment.ideal_score = round(final_ideal_score, 2)
+        except AssertionError:
+            final_ideal_score = ""
 
-        final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
-       # print("Final score for apartment: ", apartment.name, " ", final_ideal_score)
-        final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
-        apartment.ideal_score = round(final_ideal_score, 2)
         i = i + 1
 
-      #  print("Final score activation for apartment: ", apartment.name, " ", final_score_activation)
-    
-        #Plot function for result
-        #draw_result_plot (ideal_score, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, score0, aggregated, final_ideal_score, final_score_activation)
-
-        
-       # print("Activation ideal score: ", activation_ideal_score, "apartment name ", apartment.name)
-
-       # active_rule2 = np.fmin(activation_price_in_range, activation_size_too_small)
-       # activation_mid_high_score = np.fmax(active_rule2, score_mid_low)
-
-       ## print("Activation mid high score: ", activation_mid_high_score)
-
-       # active_rule3 = np.fmax(activation_price_in_range, activation_size_too_big)
-       # activation_high_score = np.fmin(active_rule3, score_high)
-
-       # #rules for bit high price
-       # active_rule4 = np.fmax(activation_price_bit_high, activation_size_in_range)
-       # activation_mid_score = np.fmin(active_rule4, score_mid)
-
-       # active_rule5 = np.fmax(activation_price_bit_high, activation_size_too_small)
-       # activation_low_score = np.fmin(active_rule5, score_low)
-
-       # active_rule6 = np.fmax(activation_price_bit_high, activation_size_too_big)
-       # activation_high_score = np.fmin(active_rule6, score_low)
-
-       # #rules for really high price
-       # active_rule7 = np.fmax(activation_price_really_high, activation_size_in_range)
-       # activation_low_score = np.fmin(active_rule7, score_mid)
-
-       # active_rule8 = np.fmax(activation_price_really_high, activation_size_too_small)
-       # activation_super_low_score = np.fmin(active_rule8, score_super_low)
-
-       # active_rule9 = np.fmax(activation_price_really_high, activation_size_too_big)
-       # activation_bit_low_score = np.fmin(active_rule9, score_bit_low)
-
-        
-        #aggregating results and deffuzification
-        #aggregated = np.fmax(activation_super_low_score,
-        #                 np.fmax(activation_bit_low_score,
-        #                         np.fmax(activation_low_score,
-        #                                 np.fmax(activation_mid_low_score,
-        #                                         np.fmax(activation_mid_score,
-        #                                                 np.fmax(activation_mid_high_score,
-        #                                                         np.fmax(activation_high_low_score,
-        #                                                                 np.fmax(activation_high_mid_score,
-        #                                                                         np.fmax(activation_high_score, activation_ideal_score)))))))))
-        
-
-
-
-
-    #for apartment in apartment_list:
-    #    print(apartment)
-
-
-    #Debugging purposes
-    #print("For finished in: ", (datetime.now() - forStartTime))
-    #print("Script finished in: ", (datetime.now() - startTime))
-    
     return apartment_list
