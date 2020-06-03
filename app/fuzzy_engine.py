@@ -89,7 +89,7 @@ def start_fuzzy_engine(formUserInput):
     size_too_big = fuzz.trapmf(size, [input_size_max, input_size_max * 1.3, 200, 200])
 
     #output -  ideal score
-    score_super_low = fuzz.trimf(ideal_score, [0, 1, 2])
+    score_super_low = fuzz.trimf(ideal_score, [0, 0, 2])
     score_bit_low = fuzz.trimf(ideal_score, [1, 2, 3])
     score_low = fuzz.trimf(ideal_score, [2, 3, 4])
     score_mid_low = fuzz.trimf(ideal_score, [3, 4, 5])
