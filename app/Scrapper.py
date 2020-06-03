@@ -73,7 +73,7 @@ def start_scrapper(url_address, limiter):
             apartment_list.append(Apartment(names[i],
                                             cleared_links[i],
                                             cleared_prices[i], cleared_rooms[i], cleared_sizes[i]))
-            return apartment_list
+
     else:
         
             for i in range(limiter):  
