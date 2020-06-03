@@ -89,6 +89,8 @@ def launcher(city, district, pages, limiter):
         pages = int((limiter / 36)) + (limiter % 36 > 0)
         #print("changing pages to fit limiter new pages: ", pages)
         pages_changed = True
+    else:
+        pages_changed = False
 
 
     apartment_list = list()
