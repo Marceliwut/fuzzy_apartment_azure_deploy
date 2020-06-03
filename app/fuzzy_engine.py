@@ -137,6 +137,12 @@ def start_fuzzy_engine(formUserInput):
         activation_size_too_big = fuzz.interp_membership(size, size_too_big, apartment.size)
 
 
+        #activation for room number
+        activation_rooms_too_few = fuzz.interp_membership(rooms, rooms_too_few, apartment.room)
+        activation_rooms_in_range = fuzz.interp_membership(rooms, rooms_in_range, apartment.room)
+        activation_rooms_too_many = fuzz.interp_membership(rooms, rooms_too_many, apartment.room)
+
+
         #print("Activation price in range", activation_price_in_range)
         #print("Price high", activation_price_bit_high)
         #print("Price really high", activation_price_really_high)
@@ -152,6 +158,7 @@ def start_fuzzy_engine(formUserInput):
         #low            XXX
         #mid_low        X
         #mid_high       X
+
         #mid            X
         #high_mid       X
         #high_low       X
@@ -160,25 +167,30 @@ def start_fuzzy_engine(formUserInput):
 
         #rules and rules assignemenets
         #rules for price in range
-        in_range_rule1 = np.fmin(activation_price_in_range, activation_size_in_range)
+        in_range_rule1 = np.fmin(activation_price_in_range, np.fmin(activation_rooms_in_range, activation_size_in_range))
         activation_ideal_score = np.fmin(in_range_rule1, score_ideal)
 
-        in_range_rule2 = np.fmin(activation_price_in_range, activation_size_too_big)
+        in_range_rule2 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_big, activation_rooms_too_many))
         activation_high_score = np.fmin(in_range_rule2, score_high)
 
-        in_range_rule3 = np.fmin(activation_price_in_range, activation_size_too_small)
+        in_range_rule3 = np.fmin(activation_price_in_range, np.fmax(activation_size_too_small, activation_rooms_too_few))
         activation_mid_score = np.fmin(in_range_rule3, score_mid)
 
         in_range_rule4 = np.fmin(activation_price_in_range, activation_size_super_small)
         activation_low_score = np.fmin(in_range_rule4, score_low)
 
+        in_range_rule5 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_many))
+        activation_mid_high_score = np.fmin(in_range_rule5, score_mid_high)
+
+        in_range_rule6 = np.fmin(activation_price_in_range, np.fmin(activation_size_in_range, activation_rooms_too_few))
+        activation_mid_low_score= np.fmin(in_range_rule6, score_mid_low)
 
 
         #prices bit high
-        bit_high_rule1 = np.fmin(activation_price_bit_high, activation_size_too_big)
+        bit_high_rule1 = np.fmin(activation_price_bit_high, np.fmax(activation_size_too_big, activation_rooms_too_many))
         activation_high_mid_score = np.fmin(bit_high_rule1, score_high_mid)
 
-        bit_high_rule2 = np.fmin(activation_price_bit_high, activation_size_in_range)
+        bit_high_rule2 = np.fmin(activation_price_bit_high, np.fmax(activation_size_in_range, activation_rooms_in_range))
         activation_high_low_score = np.fmin(bit_high_rule2, score_high_low)
 
         bit_high_rule3 = np.fmin(activation_price_bit_high, activation_size_too_small)
@@ -194,19 +206,19 @@ def start_fuzzy_engine(formUserInput):
 
         #prices really high
         really_high_rule1 = np.fmin(activation_price_really_high, activation_size_too_big)
-        activation_mid_high_score = np.fmin(really_high_rule1, score_mid_high)
+        if(activation_mid_high_score.any() == 0):
+            activation_mid_high_score = np.fmin(really_high_rule1, score_mid_high)
 
         really_high_rule2 = np.fmin(activation_price_really_high, activation_size_in_range)
-        activation_mid_low_score = np.fmin(really_high_rule2, score_mid_low)
+        if(activation_low_score.any() == 0):
+            activation_mid_low_score = np.fmin(really_high_rule2, score_mid_low)
 
         really_high_rule3 = np.fmin(activation_price_really_high, activation_size_too_small)
         if(activation_low_score.any() == 0):
             activation_low_score = np.fmin(really_high_rule3, score_low)
 
-        really_high_rule4 = np.fmin(activation_price_really_high, activation_size_super_small)
+        really_high_rule4 = np.fmin(activation_price_really_high, np.fmax(activation_size_super_small, activation_rooms_too_few))
         activation_super_low_score = np.fmin(really_high_rule4, score_super_low)
-
-
 
         #print("Activation slow score: ", activation_super_low_score)
         #print("Activation blow score: ", activation_bit_low_score)
