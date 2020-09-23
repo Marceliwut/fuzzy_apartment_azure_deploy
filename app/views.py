@@ -13,39 +13,50 @@ def home(request):
     startTime = datetime.now()
     if request.method == 'POST':
         formUserInput = UserInput(request.POST)
-        if formUserInput.is_valid():
-            try:
-                cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
+        if formUserInput.check_data():
+            if formUserInput.is_valid():
+                try:
+                    cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
             
-                #launching fuzzy engine modeling
-                apartment_list = start_fuzzy_engine(cleaned_input_apartment)
+                    #launching fuzzy engine modeling
+                    apartment_list = start_fuzzy_engine(cleaned_input_apartment)
 
-                #sorting by ideal score
-                apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
+                    #sorting by ideal score
+                    apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
 
 
 
+                    return render(
+                        request,
+                            'app/results.html',
+                            {
+                                'speed':((datetime.now() - startTime)),
+                                'apartment_list':apartment_list,
+                                'formUserInput':UserInput,
+                                'cleaned_input_apartment':cleaned_input_apartment,
+                                'title':'Strona główna',
+                                'year':datetime.now().year,
+                            }   
+                   )
+                except:
+                    return render(
+                        request,
+                            'app/error.html',
+                            {
+                                'title':'Error',
+                                'year':datetime.now().year,
+                            }
+                    )
+            else:
                 return render(
-                    request,
-                        'app/results.html',
-                        {
-                            'speed':((datetime.now() - startTime)),
-                            'apartment_list':apartment_list,
-                            'formUserInput':UserInput,
-                            'cleaned_input_apartment':cleaned_input_apartment,
-                            'title':'Strona główna',
-                            'year':datetime.now().year,
-                        }   
-               )
-            except:
-                return render(
-                    request,
-                        'app/error.html',
-                        {
-                            'title':'Error',
-                            'year':datetime.now().year,
-                        }
-                )
+                        request,
+                            'app/error_form.html',
+                            {
+                                'title':'Error',
+                                'year':datetime.now().year,
+                            }
+                    )
+
 
     else:
         formUserInput = UserInput()

@@ -1,0 +1,38 @@
+﻿{% extends "app/layout.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<header class="masthead">
+            <!--<div class="container d-flex h-100 align-items-center">-->
+                <div class="mx-auto text-center">
+                    <center>
+                    <img class="masthead-img blurring" src={% static 'app/assets/img/house.png' %} />
+                    <h2>{{ title }}</h2>
+                    <h1 class="mx-auto my-0">FuzzyApartment</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Rozmyta wyszukiwarka ofert mieszkań</h2>
+                    </center>
+                </div>
+
+            <div class="results">
+                        <h2>Oh nie! Do formularza wpisano niepoprawne dane... </h2>
+                        <p>Spróbuj jeszcze raz</p>
+
+   </div>
+
+        </header>
+
+
+            
+
+{% endblock %}
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - FuzzyApartment</p>
+        </footer>
+
+
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
