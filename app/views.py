@@ -19,7 +19,7 @@ def home(request):
     startTime = datetime.now()
     if request.method == 'POST':
         formUserInput = UserInput(request.POST)
-        if formUserInput.check_data():
+        if check_data(formUserInput):
             if formUserInput.is_valid():
                 try:
                     cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
