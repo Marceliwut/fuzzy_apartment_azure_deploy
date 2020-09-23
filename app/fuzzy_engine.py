@@ -223,7 +223,7 @@ def start_fuzzy_engine(formUserInput):
         really_high_rule4 = np.fmin(activation_price_really_high, np.fmax(activation_size_super_small, activation_rooms_too_few))
         activation_super_low_score = np.fmin(really_high_rule4, score_super_low)
 
-        way_too_high_rule1 = activation_priceactivation_price_way_too_high
+        way_too_high_rule1 = activation_price_way_too_high
         activation_super_low_score = np.fmin(way_too_high_rule1, score_super_low)
 
         #print("Activation slow score: ", activation_super_low_score)
