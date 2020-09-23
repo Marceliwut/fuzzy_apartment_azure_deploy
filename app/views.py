@@ -10,7 +10,7 @@ from app.fuzzy_engine import start_fuzzy_engine
 from app.fuzzy_engine import InputApartment
 
 def check_data(formUserInput):
-    if formUserInput.price > 10000 and formUserInput.price < 10000000 and formUserInput.size_min >= 0 and formUserInput.size_max >= 0 and formUserInput.size_max >= formUserInput.size_min and formUserInput.rooms_min >= 0 and formUserInput.rooms_max >= 1 and formUserInput.rooms_max >= formUserInput.rooms_min:
+    if formUserInput.cleaned_data['price'] > 10000 and formUserInput.cleaned_data['price'] < 10000000 and formUserInput.cleaned_data['size_min'] >= 0 and formUserInput.cleaned_data['size_max'] >= 0 and formUserInput.cleaned_data['size_max'] >= formUserInput.cleaned_data['size_min'] and formUserInput.cleaned_data['rooms_min'] >= 0 and formUserInput.cleaned_data['rooms_max'] >= 1 and formUserInput.cleaned_data['rooms_max'] >= formUserInput.cleaned_data['rooms_min']:
         return True
     else:
         return False
