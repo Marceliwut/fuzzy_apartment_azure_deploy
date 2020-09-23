@@ -9,14 +9,14 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class UserInput(forms.Form):
-    city = forms.CharField(label='Miasto', initial="Kraków")
-    price = forms.CharField(label='Cena mieszkania', initial="500000")
-    size_min = forms.IntegerField(label='Wielkość minimum', initial="40")
-    size_max = forms.IntegerField(label='Wielkość maksimum', initial="60")
-    rooms_min = forms.IntegerField(label='Ilość pokoi minimum', initial="2")
-    rooms_max = forms.IntegerField(label='Ilość pokoi maksimum', initial="4")
+    city = forms.CharField(label='Miasto', initial="Kraków", required=True)
+    price = forms.CharField(label='Cena mieszkania', initial="500000", required=True)
+    size_min = forms.IntegerField(label='Wielkość minimum', initial="40", required=True)
+    size_max = forms.IntegerField(label='Wielkość maksimum', initial="60", required=True)
+    rooms_min = forms.IntegerField(label='Ilość pokoi minimum', initial="2", required=True)
+    rooms_max = forms.IntegerField(label='Ilość pokoi maksimum', initial="4", required=True)
     #pages = forms.IntegerField(label='Limit stron', initial="1")
-    limiter = forms.IntegerField(label='Limit wyników', initial="4")
+    limiter = forms.IntegerField(label='Limit wyników', initial="4", required=True)
 
     def check_data(self):
         if self.price > 10000 and size_min >= 0 and size_max >= 0 and size_max >= size_min and rooms_min >= 0 and rooms_max >= 1 and rooms_max >= rooms_min:

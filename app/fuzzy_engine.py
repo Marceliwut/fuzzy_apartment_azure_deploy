@@ -18,8 +18,8 @@ class InputApartment:
     def __init__(self, city, price, room_min, room_max, size_min, size_max, pages, limiter):
         self.city = city
         self.price = price
-        self.rooms_min = room_min
-        self.rooms_max = room_max
+        self.rooms_min = int(room_min)
+        self.rooms_max = int(room_max)
         self.size_min = size_min
         self.size_max = size_max
         self.pages = pages
