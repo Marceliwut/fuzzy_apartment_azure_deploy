@@ -9,8 +9,8 @@ from app.forms import UserInput
 from app.fuzzy_engine import start_fuzzy_engine
 from app.fuzzy_engine import InputApartment
 
-def check_data(formUserInput):
-    if formUserInput.cleaned_data['price'] > 10000 and formUserInput.cleaned_data['price'] < 10000000 and formUserInput.cleaned_data['size_min'] >= 0 and formUserInput.cleaned_data['size_max'] >= 0 and formUserInput.cleaned_data['size_max'] >= formUserInput.cleaned_data['size_min'] and formUserInput.cleaned_data['rooms_min'] >= 0 and formUserInput.cleaned_data['rooms_max'] >= 1 and formUserInput.cleaned_data['rooms_max'] >= formUserInput.cleaned_data['rooms_min']:
+def check_data(cleaned_input_apartment):
+    if cleaned_input_apartment.price > 10000 and cleaned_input_apartment.price < 10000000 and cleaned_input_apartment.size_min >= 0 and cleaned_input_apartment.size_max >= 0 and cleaned_input_apartment.size_max >= cleaned_input_apartment.size_min and cleaned_input_apartment.rooms_min >= 0 and cleaned_input_apartment.rooms_max >= 1 and cleaned_input_apartment.rooms_max >= cleaned_input_apartment.rooms_min:
         return True
     else:
         return False
@@ -19,16 +19,16 @@ def home(request):
     startTime = datetime.now()
     if request.method == 'POST':
         formUserInput = UserInput(request.POST)
-        if check_data(formUserInput):
-            if formUserInput.is_valid():
-                try:
-                    cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
-            
-                    #launching fuzzy engine modeling
-                    apartment_list = start_fuzzy_engine(cleaned_input_apartment)
+        
+        if formUserInput.is_valid():
+            try:
+                cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
+                check_data(cleaned_input_apartment)
+                #launching fuzzy engine modeling
+                apartment_list = start_fuzzy_engine(cleaned_input_apartment)
 
                     #sorting by ideal score
-                    apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
+                apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
 
 
 
