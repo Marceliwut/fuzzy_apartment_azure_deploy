@@ -98,7 +98,7 @@ def start_fuzzy_engine(formUserInput):
     score_high_low = fuzz.trimf(ideal_score, [6, 7, 8])
     score_high_mid = fuzz.trimf(ideal_score, [7, 8, 9])
     score_high = fuzz.trimf(ideal_score, [8, 9, 10])
-    score_ideal = fuzz.trimf(ideal_score, [9, 10, 10])
+    score_ideal = fuzz.trimf(ideal_score, [10, 10, 10])
 
    # draw_plots(price, price_in_range, price_bit_high, price_really_high, rooms, rooms_too_few, rooms_in_range, rooms_too_many, size, size_too_small, size_in_range, size_too_big, score_super_low, score_bit_low, score_low, score_mid_low, score_mid, score_mid_high, score_high_low, score_high_mid, score_high, score_ideal, ideal_score, size_super_small)
 
