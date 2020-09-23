@@ -23,12 +23,12 @@ def home(request):
         if formUserInput.is_valid():
             try:
                 cleaned_input_apartment = InputApartment(formUserInput.cleaned_data['city'], formUserInput.cleaned_data['price'], formUserInput.cleaned_data['rooms_min'], formUserInput.cleaned_data['rooms_max'], formUserInput.cleaned_data['size_min'], formUserInput.cleaned_data['size_max'], 1, formUserInput.cleaned_data['limiter'])
-                check_data(cleaned_input_apartment)
-                #launching fuzzy engine modeling
-                apartment_list = start_fuzzy_engine(cleaned_input_apartment)
+                if check_data(cleaned_input_apartment):
+                    #launching fuzzy engine modeling
+                    apartment_list = start_fuzzy_engine(cleaned_input_apartment)
 
-                    #sorting by ideal score
-                apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
+                        #sorting by ideal score
+                    apartment_list = sorted(apartment_list, key=lambda x: x.ideal_score, reverse=True)
 
 
 
@@ -44,7 +44,16 @@ def home(request):
                                 'year':datetime.now().year,
                             }   
                    )
-                except:
+                else:
+                    return render(
+                        request,
+                            'app/error_form.html',
+                            {
+                                'title':'Error',
+                                'year':datetime.now().year,
+                            }
+                    )
+            except:
                     return render(
                         request,
                             'app/error.html',
@@ -53,15 +62,7 @@ def home(request):
                                 'year':datetime.now().year,
                             }
                     )
-            else:
-                return render(
-                        request,
-                            'app/error_form.html',
-                            {
-                                'title':'Error',
-                                'year':datetime.now().year,
-                            }
-                    )
+
 
 
     else:
