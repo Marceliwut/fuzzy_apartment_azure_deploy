@@ -19,7 +19,7 @@ class UserInput(forms.Form):
     limiter = forms.IntegerField(label='Limit wyników', initial="4", required=True)
 
     def check_data(self):
-        if self.price > 10000 and self.price < 10000000 and size_min >= 0 and size_max >= 0 and size_max >= size_min and rooms_min >= 0 and rooms_max >= 1 and rooms_max >= rooms_min:
+        if price > 10000 and price < 10000000 and size_min >= 0 and size_max >= 0 and size_max >= size_min and rooms_min >= 0 and rooms_max >= 1 and rooms_max >= rooms_min:
             return True
         else:
             return False
