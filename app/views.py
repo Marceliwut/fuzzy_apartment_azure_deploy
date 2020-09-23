@@ -9,6 +9,12 @@ from app.forms import UserInput
 from app.fuzzy_engine import start_fuzzy_engine
 from app.fuzzy_engine import InputApartment
 
+def check_data(formUserInput):
+    if formUserInput.price > 10000 and formUserInput.price < 10000000 and formUserInput.size_min >= 0 and formUserInput.size_max >= 0 and formUserInput.size_max >= formUserInput.size_min and formUserInput.rooms_min >= 0 and formUserInput.rooms_max >= 1 and formUserInput.rooms_max >= formUserInput.rooms_min:
+        return True
+    else:
+        return False
+
 def home(request):
     startTime = datetime.now()
     if request.method == 'POST':

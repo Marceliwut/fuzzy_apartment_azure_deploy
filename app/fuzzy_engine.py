@@ -63,7 +63,8 @@ def start_fuzzy_engine(formUserInput):
     #fuzzy membership functions
     price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
-    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (10000000), (10000000)])
+    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (input_price * 2), (input_price * 2.5)])
+    price_way_too_high = fuzz.trapmf(price, [(input_price * 2), (input_price * 2.5), (10000000), (10000000)])
 
 
     if input_room_min != 1:
@@ -131,6 +132,7 @@ def start_fuzzy_engine(formUserInput):
         activation_price_in_range = fuzz.interp_membership(price, price_in_range, apartment.price)
         activation_price_bit_high = fuzz.interp_membership(price, price_bit_high, apartment.price)
         activation_price_really_high = fuzz.interp_membership(price, price_really_high, apartment.price)
+        activation_price_way_too_high = fuzz.interp_membership(price, price_way_too_high, apartment.price)
 
         #activation for size
         activation_size_super_small = fuzz.interp_membership(size, size_super_small, apartment.size)
@@ -220,6 +222,9 @@ def start_fuzzy_engine(formUserInput):
 
         really_high_rule4 = np.fmin(activation_price_really_high, np.fmax(activation_size_super_small, activation_rooms_too_few))
         activation_super_low_score = np.fmin(really_high_rule4, score_super_low)
+
+        way_too_high_rule1 = activation_priceactivation_price_way_too_high
+        activation_super_low_score = np.fmin(way_too_high_rule1, score_super_low)
 
         #print("Activation slow score: ", activation_super_low_score)
         #print("Activation blow score: ", activation_bit_low_score)
