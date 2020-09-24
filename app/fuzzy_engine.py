@@ -64,13 +64,14 @@ def start_fuzzy_engine(formUserInput):
     price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
     price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (input_price * 1.5), (input_price * 2)])
-    price_way_too_high = fuzz.trapmf(price, [(input_price * 1.5), (input_price * 2), (10000000), (10000000)])
+    price_way_too_high = fuzz.trapmf(price, [(input_price * 1.5), (input_price * 2), (20000000), (20000000)])
+    
 
 
     if input_room_min != 1:
         rooms_too_few = fuzz.trimf(rooms, [0, 0, input_room_min ])
     else:
-        rooms_too_few = fuzz.trimf(rooms, [0, 0, 0, 1])
+        rooms_too_few = fuzz.trimf(rooms, [0, 0, 1])
 
     rooms_in_range = fuzz.trapmf(rooms, [input_room_min, input_room_min, input_room_max, input_room_max])
     #Exception handling if max rooms are over 20. It will be limited to 20 on user interface
@@ -256,10 +257,10 @@ def start_fuzzy_engine(formUserInput):
         try:
             final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
             final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
-            if round(final_ideal_score, 2) == 9.67:
-                apartment.ideal_score = 10
-            else:
-                apartment.ideal_score = round(final_ideal_score, 2)
+            #if round(final_ideal_score, 2) == 9.67:
+            #    apartment.ideal_score = 10
+            #else:
+            apartment.ideal_score = round(final_ideal_score, 2)
         except AssertionError:
             final_ideal_score = ""
 

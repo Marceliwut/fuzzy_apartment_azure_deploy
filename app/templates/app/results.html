@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div id="summary" class="jumbotron" style="height: 100%">
+<div id="summary" class="jumbotron" style="min-height: 100%">
     <div class="results">
     <h2><b>Twoje preferencje:</b></h2>
   
@@ -15,7 +15,7 @@
 <div id="results" class="results">
 <h2> Wyniki wyszukiwania:</h2>
 {% if apartment_list %}
-   Pobrano {{ apartment_list|length }} ogłoszeń.
+  
 
 <table class="table">
     <thead class="thead-dark">
