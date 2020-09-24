@@ -256,7 +256,7 @@ def start_fuzzy_engine(formUserInput):
         try:
             final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
             final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
-            if final_score_activation == 9.67:
+            if round(final_ideal_score, 2) == 9.67:
                 apartment.ideal_score = 10
             else:
                 apartment.ideal_score = round(final_ideal_score, 2)
