@@ -67,7 +67,14 @@ body {
     background-color: #fff;
     height: 100%;
 }
-
+@media (max-width: 768px) {
+    td {
+        padding:0px;
+    }
+    th {
+        padding:0px
+    }
+}
 .results {
   width: 50%;
   margin-left: 25%;

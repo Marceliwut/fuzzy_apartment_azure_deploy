@@ -63,8 +63,8 @@ def start_fuzzy_engine(formUserInput):
     #fuzzy membership functions
     price_in_range = fuzz.trapmf(price, [0, 0, input_price, (input_price *1.05)])
     price_bit_high = fuzz.trapmf(price, [(input_price), (input_price * 1.05), (input_price * 1.10), (input_price * 1.15)])
-    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (input_price * 2), (input_price * 2.5)])
-    price_way_too_high = fuzz.trapmf(price, [(input_price * 2), (input_price * 2.5), (10000000), (10000000)])
+    price_really_high = fuzz.trapmf(price, [(input_price * 1.10), (input_price * 1.20), (input_price * 1.5), (input_price * 2)])
+    price_way_too_high = fuzz.trapmf(price, [(input_price * 1.5), (input_price * 2), (10000000), (10000000)])
 
 
     if input_room_min != 1:
@@ -256,7 +256,10 @@ def start_fuzzy_engine(formUserInput):
         try:
             final_ideal_score = fuzz.defuzz(ideal_score, aggregated, 'centroid')
             final_score_activation = fuzz.interp_membership(ideal_score, aggregated, final_ideal_score)
-            apartment.ideal_score = round(final_ideal_score, 2)
+            if final_score_activation == 9.67:
+                apartment.ideal_score = 10
+            else:
+                apartment.ideal_score = round(final_ideal_score, 2)
         except AssertionError:
             final_ideal_score = ""
 
